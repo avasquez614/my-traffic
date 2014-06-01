@@ -1,4 +1,4 @@
-rootProject.name = 'traffic-event-notifier'
+rootProject.name = 'my-traffic'
 
-include 'api'
+include 'api', 'server'
 

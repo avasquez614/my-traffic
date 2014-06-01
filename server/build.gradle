@@ -1,0 +1,8 @@
+apply plugin:'application'
+
+mainClassName = 'org.mytraffic.Application'
+
+dependencies {
+    compile project(':api')
+    compile 'org.springframework.boot:spring-boot-starter-web:1.0.2.RELEASE'
+}
