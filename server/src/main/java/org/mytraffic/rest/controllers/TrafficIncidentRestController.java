@@ -1,7 +1,7 @@
 package org.mytraffic.rest.controllers;
 
 import org.mytraffic.api.TrafficIncident;
-import org.mytraffic.api.services.TrafficIncidentService;
+import org.mytraffic.api.services.data.TrafficIncidentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * REST controller for the {@link org.mytraffic.api.services.TrafficIncidentService}.
+ * REST controller for the {@link org.mytraffic.api.services.data.TrafficIncidentService}.
  *
  * @author avasquez
  * @author mariobarque

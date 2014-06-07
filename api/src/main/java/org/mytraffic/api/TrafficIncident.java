@@ -1,7 +1,5 @@
 package org.mytraffic.api;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
 
 /**
@@ -62,7 +60,6 @@ public class TrafficIncident {
         this.description = description;
     }
 
-    @DateTimeFormat(pattern = DATE_TIME_FORMAT)
     public Date getStart() {
         return start;
     }
@@ -71,7 +68,6 @@ public class TrafficIncident {
         this.start = start;
     }
 
-    @DateTimeFormat(pattern = DATE_TIME_FORMAT)
     public Date getLastModified() {
         return lastModified;
     }

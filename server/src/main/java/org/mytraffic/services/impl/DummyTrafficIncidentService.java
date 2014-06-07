@@ -4,7 +4,7 @@ import org.mytraffic.api.IncidentSeverity;
 import org.mytraffic.api.IncidentType;
 import org.mytraffic.api.MapPoint;
 import org.mytraffic.api.TrafficIncident;
-import org.mytraffic.api.services.TrafficIncidentService;
+import org.mytraffic.api.services.data.TrafficIncidentService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -12,7 +12,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Dummy {@link org.mytraffic.api.services.TrafficIncidentService}, with sample incidents.
+ * Dummy {@link org.mytraffic.api.services.data.TrafficIncidentService}, with sample incidents.
  *
  * @author avasquez
  * @author mariobarque
