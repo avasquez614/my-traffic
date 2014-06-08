@@ -21,7 +21,7 @@ public interface FavoriteRouteDataService {
      *
      * @return  the favorite routes of the user
      */
-    List<FavoriteRoute> findFavoriteRoutesForUser(String userId) throws DataServiceException;
+    List<FavoriteRoute> findFavoriteRoutesByUserId(String userId) throws DataServiceException;
 
     /**
      * Returns the list of favorite routes with one or more notification times within the specified range.
