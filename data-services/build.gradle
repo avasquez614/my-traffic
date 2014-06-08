@@ -1,0 +1,6 @@
+apply plugin:'application'
+
+dependencies {
+    compile project(':data-api')
+    compile 'org.springframework.boot:spring-boot-starter-web:1.0.2.RELEASE'
+}
