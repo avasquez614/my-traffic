@@ -29,12 +29,12 @@ public class FavoriteRouteDataRestController {
 
     @RequestMapping(value = URL_FAVORITE_ROUTES_FIND_BY_USER_ID, method = RequestMethod.GET)
     @ResponseBody
-    public List<FavoriteRoute> findFavoriteRoutesForUser(@RequestParam(PARAM_USER_ID) String userId)
+    public List<FavoriteRoute> findFavoriteRoutesByUser(@RequestParam(PARAM_USER_ID) String userId)
             throws DataServiceException {
         return favoriteRouteDataService.findFavoriteRoutesByUserId(userId);
     }
 
-    @RequestMapping(value = URL_FAVORITE_ROUTES_FIND_BY_NOTIFICATION_TIMES_RANGE, method = RequestMethod.GET)
+    @RequestMapping(value = URL_FAVORITE_ROUTES_FIND_BY_NOTIFICATION_TIME_RANGE, method = RequestMethod.GET)
     @ResponseBody
     List<FavoriteRoute> findFavoriteRoutesByNotificationTimeRange(@RequestParam(PARAM_FROM)
                                                                   @DateTimeFormat(pattern = TIME_FORMAT)

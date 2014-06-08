@@ -1,6 +1,6 @@
-apply plugin:'application'
-
 dependencies {
     compile project(':data-api')
+    compile 'org.craftercms:crafter-commons-mongo:2.5.0-SNAPSHOT'
+    compile 'org.craftercms:crafter-commons-utilities:2.5.0-SNAPSHOT'
     compile 'org.springframework.boot:spring-boot-starter-web:1.0.2.RELEASE'
 }

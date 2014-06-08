@@ -24,8 +24,6 @@ import static org.mytraffic.api.data.DataRestConstants.*;
 @RequestMapping(BASE_URL_TRAFFIC_INCIDENTS)
 public class TrafficIncidentDataRestController {
 
-    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
-
     @Autowired
     private TrafficIncidentDataService trafficIncidentDataService;
 
@@ -42,7 +40,7 @@ public class TrafficIncidentDataRestController {
                                                  @RequestParam(value = PARAM_TO, required = false)
                                                  @DateTimeFormat(pattern = DATE_TIME_FORMAT) Date to)
             throws DataServiceException {
-        return trafficIncidentDataService.findIncidentByDateTimeRange(from, to);
+        return trafficIncidentDataService.findIncidentByDateRange(from, to);
     }
 
     @RequestMapping(value = URL_TRAFFIC_INCIDENTS_ADD, method = RequestMethod.POST)

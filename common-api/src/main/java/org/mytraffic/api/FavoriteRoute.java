@@ -11,10 +11,19 @@ import java.util.List;
  */
 public class FavoriteRoute {
 
+    private String userId;
     private String polyline;
     private String description;
     private List<LocalTime> notificationTimes;
     private IncidentSeverity minIncidentSeverity;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getPolyline() {
         return polyline;

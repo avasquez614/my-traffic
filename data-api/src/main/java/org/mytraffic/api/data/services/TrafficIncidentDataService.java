@@ -31,7 +31,7 @@ public interface TrafficIncidentDataService {
      *
      * @return the list of matching {@link org.mytraffic.api.TrafficIncident}s
      */
-    List<TrafficIncident> findIncidentByDateTimeRange(Date from, Date to) throws DataServiceException;
+    List<TrafficIncident> findIncidentByDateRange(Date from, Date to) throws DataServiceException;
 
     /**
      * Adds a new incident to the database.

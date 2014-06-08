@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+    <entry key="trafficIncidents.findByDateRange">
+        {lastModified: {$lte: #, $gte: #}}
+    </entry>
+
+    <entry key="favoriteRoute.findByUserId">
+        {userId: #}
+    </entry>
+
+    <entry key="favoriteRoute.findByNotificationTimeRange">
+        {notificationTimes: {$lte: #, $gte: #}}
+    </entry>
+
+</properties>
