@@ -1,6 +1,8 @@
 package org.mytraffic.api;
 
-import java.util.Date;
+import org.bson.types.ObjectId;
+
+import java.time.ZonedDateTime;
 
 /**
  * Represents a traffic incident (accident, construction, etc.)
@@ -10,20 +12,20 @@ import java.util.Date;
  */
 public class TrafficIncident {
 
-    private String id;
+    private ObjectId _id;
     private MapPoint location;
     private IncidentType type;
     private IncidentSeverity severity;
     private String description;
-    private Date start;
-    private Date lastModified;
+    private ZonedDateTime start;
+    private ZonedDateTime lastModified;
 
-    public String getId() {
-        return id;
+    public ObjectId getId() {
+        return _id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(ObjectId id) {
+        this._id = id;
     }
 
     public MapPoint getLocation() {
@@ -58,19 +60,19 @@ public class TrafficIncident {
         this.description = description;
     }
 
-    public Date getStart() {
+    public ZonedDateTime getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(ZonedDateTime start) {
         this.start = start;
     }
 
-    public Date getLastModified() {
+    public ZonedDateTime getLastModified() {
         return lastModified;
     }
 
-    public void setLastModified(Date lastModified) {
+    public void setLastModified(ZonedDateTime lastModified) {
         this.lastModified = lastModified;
     }
 

@@ -34,4 +34,8 @@ public class DataServiceException extends MyTrafficException {
         this.errorCode = errorCode;
     }
 
+    public DataErrorCode getErrorCode() {
+        return errorCode;
+    }
+
 }

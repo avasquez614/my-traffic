@@ -1,5 +1,7 @@
 package org.mytraffic.api;
 
+import org.bson.types.ObjectId;
+
 import java.time.LocalTime;
 import java.util.List;
 
@@ -11,11 +13,20 @@ import java.util.List;
  */
 public class FavoriteRoute {
 
+    private ObjectId _id;
     private String userId;
     private String polyline;
     private String description;
     private List<LocalTime> notificationTimes;
     private IncidentSeverity minIncidentSeverity;
+
+    public ObjectId getId() {
+        return _id;
+    }
+
+    public void setId(ObjectId id) {
+        this._id = id;
+    }
 
     public String getUserId() {
         return userId;

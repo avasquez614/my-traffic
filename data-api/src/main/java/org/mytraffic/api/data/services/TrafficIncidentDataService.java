@@ -3,7 +3,7 @@ package org.mytraffic.api.data.services;
 import org.mytraffic.api.TrafficIncident;
 import org.mytraffic.api.data.exceptions.DataServiceException;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -31,7 +31,7 @@ public interface TrafficIncidentDataService {
      *
      * @return the list of matching {@link org.mytraffic.api.TrafficIncident}s
      */
-    List<TrafficIncident> findIncidentByDateRange(Date from, Date to) throws DataServiceException;
+    List<TrafficIncident> findIncidentsByDateRange(ZonedDateTime from, ZonedDateTime to) throws DataServiceException;
 
     /**
      * Adds a new incident to the database.

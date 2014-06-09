@@ -5,7 +5,7 @@ import org.craftercms.commons.mongo.MongoDataException;
 import org.mytraffic.api.TrafficIncident;
 import org.mytraffic.data.repositories.TrafficIncidentRepository;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 /**
  * Default implementation of {@link org.mytraffic.data.repositories.TrafficIncidentRepository}.
@@ -19,7 +19,7 @@ public class TrafficIncidentRepositoryImpl extends AbstractJongoRepository<Traff
     private static final String KEY_FIND_BY_DATE_RANGE = "trafficIncidents.findByDateRange";
 
     @Override
-    public Iterable<TrafficIncident> findByDateRange(Date from, Date to) throws MongoDataException {
+    public Iterable<TrafficIncident> findByDateRange(ZonedDateTime from, ZonedDateTime to) throws MongoDataException {
         return find(getQueryFor(KEY_FIND_BY_DATE_RANGE), from, to);
     }
 

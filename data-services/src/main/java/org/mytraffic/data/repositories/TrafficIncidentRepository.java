@@ -4,7 +4,7 @@ import org.craftercms.commons.mongo.CrudRepository;
 import org.craftercms.commons.mongo.MongoDataException;
 import org.mytraffic.api.TrafficIncident;
 
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 /**
  * Mongo repository for {@link org.mytraffic.api.TrafficIncident}s.
@@ -14,6 +14,6 @@ import java.util.Date;
  */
 public interface TrafficIncidentRepository extends CrudRepository<TrafficIncident> {
 
-    Iterable<TrafficIncident> findByDateRange(Date from, Date to) throws MongoDataException;
+    Iterable<TrafficIncident> findByDateRange(ZonedDateTime from, ZonedDateTime to) throws MongoDataException;
 
 }

@@ -1,5 +1,6 @@
 package org.mytraffic.data.repositories;
 
+import org.craftercms.commons.mongo.CrudRepository;
 import org.craftercms.commons.mongo.MongoDataException;
 import org.mytraffic.api.FavoriteRoute;
 
@@ -11,7 +12,7 @@ import java.time.LocalTime;
  * @author avasquez
  * @author mariobarque
  */
-public interface FavoriteRouteRepository {
+public interface FavoriteRouteRepository extends CrudRepository<FavoriteRoute> {
 
     Iterable<FavoriteRoute> findByUserId(String userId) throws MongoDataException;
 

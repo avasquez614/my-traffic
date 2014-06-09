@@ -25,13 +25,13 @@ import static org.mytraffic.api.data.DataRestConstants.*;
 public class FavoriteRouteDataRestController {
 
     @Autowired
-    private FavoriteRouteDataService favoriteRouteDataService;
+    private FavoriteRouteDataService service;
 
     @RequestMapping(value = URL_FAVORITE_ROUTES_FIND_BY_USER_ID, method = RequestMethod.GET)
     @ResponseBody
     public List<FavoriteRoute> findFavoriteRoutesByUser(@RequestParam(PARAM_USER_ID) String userId)
             throws DataServiceException {
-        return favoriteRouteDataService.findFavoriteRoutesByUserId(userId);
+        return service.findFavoriteRoutesByUserId(userId);
     }
 
     @RequestMapping(value = URL_FAVORITE_ROUTES_FIND_BY_NOTIFICATION_TIME_RANGE, method = RequestMethod.GET)
@@ -42,25 +42,25 @@ public class FavoriteRouteDataRestController {
                                                                   @RequestParam(PARAM_TO)
                                                                   @DateTimeFormat(pattern = TIME_FORMAT)
                                                                   LocalTime to) throws DataServiceException {
-        return favoriteRouteDataService.findFavoriteRoutesByNotificationTimeRange(from, to);
+        return service.findFavoriteRoutesByNotificationTimeRange(from, to);
     }
 
     @RequestMapping(value = URL_FAVORITE_ROUTES_ADD, method = RequestMethod.POST)
     @ResponseBody
     public FavoriteRoute addFavoriteRoute(@RequestBody FavoriteRoute route) throws DataServiceException {
-        return favoriteRouteDataService.addFavoriteRoute(route);
+        return service.addFavoriteRoute(route);
     }
 
     @RequestMapping(value = URL_FAVORITE_ROUTES_UPDATE, method = RequestMethod.POST)
     @ResponseBody
     public FavoriteRoute updateFavoriteRoute(@RequestBody FavoriteRoute route) throws DataServiceException {
-        return favoriteRouteDataService.updateFavoriteRoute(route);
+        return service.updateFavoriteRoute(route);
     }
 
     @RequestMapping(value = URL_FAVORITE_ROUTES_REMOVE, method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public void removeFavoriteRoute(@PathVariable(PATH_VAR_ID) String id) throws DataServiceException {
-        favoriteRouteDataService.removeFavoriteRoute(id);
+        service.removeFavoriteRoute(id);
     }
 
 }

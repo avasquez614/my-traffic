@@ -10,6 +10,14 @@ subprojects {
         mavenCentral()
     }
 
+    configurations {
+        provided
+    }
+
+    sourceSets {
+        main { compileClasspath += configurations.provided }
+    }
+
     dependencies {
         testCompile 'junit:junit:4.11'
     }

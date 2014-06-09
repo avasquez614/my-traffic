@@ -16,8 +16,8 @@ import java.time.LocalTime;
 public class FavoriteRouteRepositoryImpl extends AbstractJongoRepository<FavoriteRoute> implements
         FavoriteRouteRepository {
 
-    private static final String KEY_FIND_BY_USER_ID = "favoriteRoute.findByUserId";
-    private static final String KEY_FIND_NOTIFICATION_TIME_RANGE = "favoriteRoute.findByNotificationTimeRange";
+    private static final String KEY_FIND_BY_USER_ID =               "favoriteRoute.findByUserId";
+    private static final String KEY_FIND_NOTIFICATION_TIME_RANGE =  "favoriteRoute.findByNotificationTimeRange";
 
     @Override
     public Iterable<FavoriteRoute> findByUserId(String userId) throws MongoDataException {
