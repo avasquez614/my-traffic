@@ -1,4 +1,4 @@
 rootProject.name = 'my-traffic'
 
-include 'common-api', 'data-api', 'data-services'
+include 'commons', 'data-api', 'data-services'
 

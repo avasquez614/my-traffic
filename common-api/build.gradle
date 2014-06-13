@@ -1,5 +1,0 @@
-dependencies {
-    compile 'org.mongodb:bson:2.11.3'
-    compile 'org.springframework:spring-context:4.0.5.RELEASE'
-    compile 'org.springframework:spring-webmvc:4.0.5.RELEASE'
-}

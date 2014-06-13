@@ -20,9 +20,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  * @author avasquez
  */
 @ControllerAdvice
-public class RestControllerAdvice extends ResponseEntityExceptionHandler {
+public class ExceptionHandlers extends ResponseEntityExceptionHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(RestControllerAdvice.class);
+    private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlers.class);
 
     @ExceptionHandler(DataServiceException.class)
     public ResponseEntity<Object> handleDataServiceException(DataServiceException e, WebRequest request) {

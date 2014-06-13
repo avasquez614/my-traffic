@@ -26,7 +26,7 @@ public class FavoriteRouteRepositoryImpl extends AbstractJongoRepository<Favorit
 
     @Override
     public Iterable<FavoriteRoute> findByNotificationTimeRange(LocalTime from, LocalTime to) throws MongoDataException {
-        return find(getQueryFor(KEY_FIND_NOTIFICATION_TIME_RANGE), from.toSecondOfDay(), to.toSecondOfDay());
+        return find(getQueryFor(KEY_FIND_NOTIFICATION_TIME_RANGE), from.toNanoOfDay(), to.toNanoOfDay());
     }
 
 }
