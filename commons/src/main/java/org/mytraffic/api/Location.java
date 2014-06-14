@@ -1,17 +1,17 @@
 package org.mytraffic.api;
 
 /**
- * Represents a geographical point in a map, with latitude and longitude.
+ * Represents a geographical location, with latitude and longitude.
  *
  * @author avasquez
  * @author mariobarque
  */
-public class MapPoint {
+public class Location {
 
     private double latitude;
     private double longitude;
 
-    public MapPoint(double latitude, double longitude) {
+    public Location(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }

@@ -1,7 +1,7 @@
 package org.mytraffic.api.data.services;
 
 import org.mytraffic.api.TrafficIncident;
-import org.mytraffic.api.data.exceptions.DataServiceException;
+import org.mytraffic.api.data.exceptions.DataApiException;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * @author avasquez
  * @author mariobarque
  */
-public interface TrafficIncidentDataService {
+public interface TrafficIncidentService {
 
     /**
      * Returns the incident with the specified ID.
@@ -21,7 +21,7 @@ public interface TrafficIncidentDataService {
      *
      * @return the incident, or null if not found
      */
-    TrafficIncident findIncidentById(String id) throws DataServiceException;
+    TrafficIncident findIncidentById(String id) throws DataApiException;
 
     /**
      * Returns the list of traffic incidents whose last modified date is within the specified range.
@@ -31,7 +31,7 @@ public interface TrafficIncidentDataService {
      *
      * @return the list of matching {@link org.mytraffic.api.TrafficIncident}s
      */
-    List<TrafficIncident> findIncidentsByDateRange(ZonedDateTime from, ZonedDateTime to) throws DataServiceException;
+    List<TrafficIncident> findIncidentsByDateRange(ZonedDateTime from, ZonedDateTime to) throws DataApiException;
 
     /**
      * Adds a new incident to the database.
@@ -40,7 +40,7 @@ public interface TrafficIncidentDataService {
      *
      * @return the added incident, with it's generated ID set
      */
-    TrafficIncident addIncident(TrafficIncident incident) throws DataServiceException;
+    TrafficIncident addIncident(TrafficIncident incident) throws DataApiException;
 
     /**
      * Updates the specified incident in the database.
@@ -49,13 +49,13 @@ public interface TrafficIncidentDataService {
      *
      * @return the updated incident
      */
-    TrafficIncident updateIncident(TrafficIncident incident) throws DataServiceException;
+    TrafficIncident updateIncident(TrafficIncident incident) throws DataApiException;
 
     /**
      * Removes the incident with the specified ID from the database
      *
      * @param id    the ID of the incident to remove
      */
-    void removeIncident(String id) throws DataServiceException;
+    void removeIncident(String id) throws DataApiException;
 
 }

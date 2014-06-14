@@ -1,7 +1,7 @@
 package org.mytraffic.data.rest.controllers;
 
-import org.mytraffic.api.data.exceptions.DataErrorCode;
-import org.mytraffic.api.data.exceptions.DataServiceException;
+import org.mytraffic.api.data.exceptions.DataApiErrorCode;
+import org.mytraffic.api.data.exceptions.DataApiException;
 import org.mytraffic.api.exception.ErrorDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,28 +24,28 @@ public class ExceptionHandlers extends ResponseEntityExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(ExceptionHandlers.class);
 
-    @ExceptionHandler(DataServiceException.class)
-    public ResponseEntity<Object> handleDataServiceException(DataServiceException e, WebRequest request) {
+    @ExceptionHandler(DataApiException.class)
+    public ResponseEntity<Object> handleDataServiceException(DataApiException e, WebRequest request) {
         return handleExceptionInternal(e, e.getErrorCode().getDefaultHttpStatus(), e.getErrorCode(), request);
     }
 
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
                                                              HttpStatus status, WebRequest request) {
-        return handleExceptionInternal(ex, headers, status, DataErrorCode.OTHER, request);
+        return handleExceptionInternal(ex, headers, status, DataApiErrorCode.OTHER, request);
     }
 
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, HttpStatus status,
-                                                             DataErrorCode errorCode, WebRequest request) {
+                                                             DataApiErrorCode errorCode, WebRequest request) {
         return handleExceptionInternal(ex, new HttpHeaders(), status, errorCode, request);
     }
 
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, HttpHeaders headers, HttpStatus status,
-                                                             DataErrorCode errorCode, WebRequest request) {
+                                                             DataApiErrorCode errorCode, WebRequest request) {
         logger.error("Request for " + ((ServletWebRequest) request).getRequest().getRequestURI() + " failed " +
                 "with HTTP status " + status, ex);
 
-        ErrorDetails<DataErrorCode> errorDetails = new ErrorDetails<>(errorCode, ex.getLocalizedMessage());
+        ErrorDetails<DataApiErrorCode> errorDetails = new ErrorDetails<>(errorCode, ex.getLocalizedMessage());
 
         return new ResponseEntity<>(errorDetails, headers, status);
     }

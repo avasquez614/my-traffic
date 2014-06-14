@@ -1,14 +1,14 @@
 package org.mytraffic.api.data;
 
 /**
- * Commons constants for data services.
+ * Commons constants for data API.
  *
  * @author avasquez
  * @author mariobarque
  */
-public class DataRestConstants {
+public class DataApiConstants {
 
-    private DataRestConstants() {
+    private DataApiConstants() {
     }
 
     public static final String BASE_URL_REST_API =          "/api/1/data";

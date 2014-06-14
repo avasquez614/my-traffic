@@ -13,7 +13,7 @@ import java.time.ZonedDateTime;
 public class TrafficIncident {
 
     private ObjectId _id;
-    private MapPoint location;
+    private Location location;
     private IncidentType type;
     private IncidentSeverity severity;
     private String description;
@@ -28,11 +28,11 @@ public class TrafficIncident {
         this._id = id;
     }
 
-    public MapPoint getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(MapPoint location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 

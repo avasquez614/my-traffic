@@ -11,11 +11,12 @@ import org.mytraffic.data.repositories.impl.TrafficIncidentRepositoryImpl;
 import org.mytraffic.utils.jackson.JongoLocalTimeDeserializer;
 import org.mytraffic.utils.jackson.JongoLocalTimeSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ResourceLoader;
 
 import java.net.UnknownHostException;
@@ -35,25 +36,36 @@ import java.util.Collections;
 public class AppConfig {
 
     @Autowired
-    private Environment environment;
-    @Autowired
     private ResourceLoader resourceLoader;
+
+    @Value("${mongo.host}")
+    private String mongoHost;
+    @Value("${mongo.port}")
+    private int mongoPort;
+    @Value("${mongo.dbName}")
+    private String mongoDbName;
+    @Value("${mongo.username}")
+    private String mongoUsername;
+    @Value("${mongo.password}")
+    private String mongoPassword;
+
+    @Bean
+    public PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
 
     @Bean
     public MongoClient mongoClient() throws UnknownHostException {
-        String host = environment.getRequiredProperty("mongo.host");
-        int port = Integer.parseInt(environment.getRequiredProperty("mongo.port"));
-
-        return new MongoClient(host, port);
+        return new MongoClient(mongoHost, mongoPort);
     }
 
     @Bean
     public Jongo jongo() throws Exception {
         JongoFactoryBean factoryBean = new JongoFactoryBean();
         factoryBean.setMongo(mongoClient());
-        factoryBean.setDbName(environment.getRequiredProperty("mongo.dbName"));
-        factoryBean.setUsername(environment.getProperty("mongo.username"));
-        factoryBean.setUsername(environment.getProperty("mongo.password"));
+        factoryBean.setDbName(mongoDbName);
+        factoryBean.setUsername(mongoUsername);
+        factoryBean.setUsername(mongoPassword);
         factoryBean.setSerializers(Arrays.asList(new JongoLocalTimeSerializer()));
         factoryBean.setDeserializers(Collections.singletonMap(LocalTime.class, new JongoLocalTimeDeserializer()));
         factoryBean.afterPropertiesSet();

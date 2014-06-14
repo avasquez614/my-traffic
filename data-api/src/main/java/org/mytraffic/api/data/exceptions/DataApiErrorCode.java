@@ -3,12 +3,12 @@ package org.mytraffic.api.data.exceptions;
 import org.springframework.http.HttpStatus;
 
 /**
- * Error codes for My Traffic data services.
+ * Error codes for My Traffic data API.
  *
  * @author avasquez
  * @author mariobarque
  */
-public enum DataErrorCode {
+public enum DataApiErrorCode {
     /**
      * If no incident was found for an specified ID
      */
@@ -24,7 +24,7 @@ public enum DataErrorCode {
 
     private HttpStatus defaultHttpStatus;
 
-    private DataErrorCode(HttpStatus defaultHttpStatus) {
+    private DataApiErrorCode(HttpStatus defaultHttpStatus) {
         this.defaultHttpStatus = defaultHttpStatus;
     }
 
