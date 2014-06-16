@@ -1,0 +1,12 @@
+apply plugin: 'war'
+
+dependencies {
+    compile project(':private-api')
+    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
+    compile 'org.craftercms:crafter-commons-mongo:2.5.0-SNAPSHOT'
+    compile 'org.craftercms:crafter-commons-utilities:2.5.0-SNAPSHOT'
+    compile 'org.slf4j:slf4j-api:1.7.7'
+    compile 'org.slf4j:jcl-over-slf4j:1.7.7'
+    compile 'ch.qos.logback:logback-classic:1.0.13'
+    compile 'ch.qos.logback:logback-core:1.0.13'
+}
