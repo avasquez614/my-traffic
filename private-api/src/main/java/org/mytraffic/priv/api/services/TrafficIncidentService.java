@@ -1,13 +1,13 @@
 package org.mytraffic.priv.api.services;
 
-import org.mytraffic.priv.TrafficIncident;
+import org.mytraffic.TrafficIncident;
 import org.mytraffic.priv.api.exceptions.PrivateApiException;
 
 import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
- * Service for registration and querying of {@link org.mytraffic.priv.TrafficIncident}s.
+ * Service for registration and querying of {@link org.mytraffic.TrafficIncident}s.
  *
  * @author avasquez
  * @author mariobarque
@@ -29,7 +29,7 @@ public interface TrafficIncidentService {
      * @param from  the start date of the range. A null value means to return incidents from the first one
      * @param to    the end date of the range. A null value means to return incidents until now
      *
-     * @return the list of matching {@link org.mytraffic.priv.TrafficIncident}s
+     * @return the list of matching {@link org.mytraffic.TrafficIncident}s
      */
     List<TrafficIncident> findIncidentsByDateRange(ZonedDateTime from, ZonedDateTime to) throws PrivateApiException;
 

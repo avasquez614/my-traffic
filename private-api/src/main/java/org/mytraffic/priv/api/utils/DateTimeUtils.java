@@ -1,4 +1,4 @@
-package org.mytraffic.priv.utils;
+package org.mytraffic.priv.api.utils;
 
 import org.mytraffic.priv.api.PrivateApiConstants;
 

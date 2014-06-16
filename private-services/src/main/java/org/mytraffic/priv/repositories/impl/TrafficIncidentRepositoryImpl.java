@@ -2,7 +2,7 @@ package org.mytraffic.priv.repositories.impl;
 
 import org.craftercms.commons.mongo.AbstractJongoRepository;
 import org.craftercms.commons.mongo.MongoDataException;
-import org.mytraffic.priv.TrafficIncident;
+import org.mytraffic.TrafficIncident;
 import org.mytraffic.priv.repositories.TrafficIncidentRepository;
 
 import java.time.ZonedDateTime;

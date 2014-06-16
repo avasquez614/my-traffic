@@ -1,13 +1,13 @@
 package org.mytraffic.priv.api.services;
 
-import org.mytraffic.priv.FavoriteRoute;
+import org.mytraffic.FavoriteRoute;
 import org.mytraffic.priv.api.exceptions.PrivateApiException;
 
 import java.time.LocalTime;
 import java.util.List;
 
 /**
- * Service for registration and querying of {@link org.mytraffic.priv.FavoriteRoute}s.
+ * Service for registration and querying of {@link org.mytraffic.FavoriteRoute}s.
  *
  * @author avasquez
  * @author mariobarque
@@ -29,7 +29,7 @@ public interface FavoriteRouteService {
      * @param from  the start time of the range. A null value means to return incidents from the start of the day
      * @param to    the end date of the range. A null value means to return incidents until the end of day
      *
-     * @return the list of matching {@link org.mytraffic.priv.FavoriteRoute}s
+     * @return the list of matching {@link org.mytraffic.FavoriteRoute}s
      */
     List<FavoriteRoute> findFavoriteRoutesByNotificationTimeRange(LocalTime from, LocalTime to) throws PrivateApiException;
 

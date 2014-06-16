@@ -1,4 +1,4 @@
-package org.mytraffic.priv;
+package org.mytraffic;
 
 /**
  * Represents a geographical location, with latitude and longitude.

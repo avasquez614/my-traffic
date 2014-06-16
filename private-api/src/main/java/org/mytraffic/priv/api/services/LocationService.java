@@ -1,6 +1,6 @@
 package org.mytraffic.priv.api.services;
 
-import org.mytraffic.priv.Location;
+import org.mytraffic.Location;
 import org.mytraffic.priv.api.exceptions.PrivateApiException;
 
 /**
@@ -12,7 +12,7 @@ import org.mytraffic.priv.api.exceptions.PrivateApiException;
 public interface LocationService {
 
     /**
-     * Returns true if the specified {@link org.mytraffic.priv.Location} lies on or is near the route.
+     * Returns true if the specified {@link org.mytraffic.Location} lies on or is near the route.
      *
      * @param location  the location
      * @param polyline  the route, represented as a Google Map polyline

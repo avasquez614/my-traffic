@@ -2,12 +2,12 @@ package org.mytraffic.priv.services.impl;
 
 import org.craftercms.commons.collections.IterableUtils;
 import org.craftercms.commons.mongo.MongoDataException;
-import org.mytraffic.priv.FavoriteRoute;
+import org.mytraffic.FavoriteRoute;
 import org.mytraffic.priv.api.exceptions.PrivateApiErrorCode;
 import org.mytraffic.priv.api.exceptions.PrivateApiException;
 import org.mytraffic.priv.api.services.FavoriteRouteService;
+import org.mytraffic.priv.api.utils.DateTimeUtils;
 import org.mytraffic.priv.repositories.FavoriteRouteRepository;
-import org.mytraffic.priv.utils.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

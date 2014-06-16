@@ -1,4 +1,4 @@
-package org.mytraffic.priv;
+package org.mytraffic;
 
 import org.bson.types.ObjectId;
 

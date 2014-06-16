@@ -2,12 +2,12 @@ package org.mytraffic.priv.repositories;
 
 import org.craftercms.commons.mongo.CrudRepository;
 import org.craftercms.commons.mongo.MongoDataException;
-import org.mytraffic.priv.FavoriteRoute;
+import org.mytraffic.FavoriteRoute;
 
 import java.time.LocalTime;
 
 /**
- * Mongo repository for {@link org.mytraffic.priv.FavoriteRoute}s.
+ * Mongo repository for {@link org.mytraffic.FavoriteRoute}s.
  *
  * @author avasquez
  * @author mariobarque

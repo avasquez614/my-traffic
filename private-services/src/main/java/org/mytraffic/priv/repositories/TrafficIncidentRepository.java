@@ -2,12 +2,12 @@ package org.mytraffic.priv.repositories;
 
 import org.craftercms.commons.mongo.CrudRepository;
 import org.craftercms.commons.mongo.MongoDataException;
-import org.mytraffic.priv.TrafficIncident;
+import org.mytraffic.TrafficIncident;
 
 import java.time.ZonedDateTime;
 
 /**
- * Mongo repository for {@link org.mytraffic.priv.TrafficIncident}s.
+ * Mongo repository for {@link org.mytraffic.TrafficIncident}s.
  *
  * @author avasquez
  * @author mariobarque

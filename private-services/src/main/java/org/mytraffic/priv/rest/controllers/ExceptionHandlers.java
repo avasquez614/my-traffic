@@ -1,8 +1,8 @@
 package org.mytraffic.priv.rest.controllers;
 
 import org.mytraffic.priv.api.exceptions.PrivateApiErrorCode;
+import org.mytraffic.priv.api.exceptions.PrivateApiErrorDetails;
 import org.mytraffic.priv.api.exceptions.PrivateApiException;
-import org.mytraffic.priv.exception.ErrorDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -45,7 +45,7 @@ public class ExceptionHandlers extends ResponseEntityExceptionHandler {
         logger.error("Request for " + ((ServletWebRequest) request).getRequest().getRequestURI() + " failed " +
                 "with HTTP status " + status, ex);
 
-        ErrorDetails<PrivateApiErrorCode> errorDetails = new ErrorDetails<>(errorCode, ex.getLocalizedMessage());
+        PrivateApiErrorDetails errorDetails = new PrivateApiErrorDetails(errorCode, ex.getLocalizedMessage());
 
         return new ResponseEntity<>(errorDetails, headers, status);
     }

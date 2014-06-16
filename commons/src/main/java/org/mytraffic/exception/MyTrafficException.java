@@ -1,4 +1,4 @@
-package org.mytraffic.priv.exception;
+package org.mytraffic.exception;
 
 /**
  * Root exception for all errors in My Traffic system.

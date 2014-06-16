@@ -18,17 +18,17 @@ public class PrivateApiConstants {
 
     public static final String PATH_VAR_ID = "id";
 
-    public static final String URL_TRAFFIC_INCIDENTS_FIND_BY_ID =           "/" + PATH_VAR_ID;
+    public static final String URL_TRAFFIC_INCIDENTS_FIND_BY_ID =           "/{" + PATH_VAR_ID + "}";
     public static final String URL_TRAFFIC_INCIDENTS_FIND_BY_DATE_RANGE =   "/by_date_range";
     public static final String URL_TRAFFIC_INCIDENTS_ADD =                  "/add";
     public static final String URL_TRAFFIC_INCIDENTS_UPDATE =               "/update";
-    public static final String URL_TRAFFIC_INCIDENTS_REMOVE =               "/" + PATH_VAR_ID + "/remove";
+    public static final String URL_TRAFFIC_INCIDENTS_REMOVE =               "/{" + PATH_VAR_ID + "}/remove";
 
     public static final String URL_FAVORITE_ROUTES_FIND_BY_USER_ID =                    "/by_user_id";
     public static final String URL_FAVORITE_ROUTES_FIND_BY_NOTIFICATION_TIME_RANGE =    "/by_notification_time_range";
     public static final String URL_FAVORITE_ROUTES_ADD =                                "/add";
     public static final String URL_FAVORITE_ROUTES_UPDATE =                             "/update";
-    public static final String URL_FAVORITE_ROUTES_REMOVE =                             "/" + PATH_VAR_ID + "/remove";
+    public static final String URL_FAVORITE_ROUTES_REMOVE =                             "/{" + PATH_VAR_ID + "}/remove";
 
     public static final String URL_LOCATION_LOCATION_ON_ROUTE = "/location_on_route";
 

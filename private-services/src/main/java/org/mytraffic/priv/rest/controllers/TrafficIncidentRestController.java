@@ -1,6 +1,6 @@
 package org.mytraffic.priv.rest.controllers;
 
-import org.mytraffic.priv.TrafficIncident;
+import org.mytraffic.TrafficIncident;
 import org.mytraffic.priv.api.exceptions.PrivateApiException;
 import org.mytraffic.priv.api.services.TrafficIncidentService;
 import org.springframework.beans.factory.annotation.Autowired;

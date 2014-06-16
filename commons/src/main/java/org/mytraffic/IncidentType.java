@@ -1,4 +1,4 @@
-package org.mytraffic.priv;
+package org.mytraffic;
 
 /**
  * Enum with the types of incident.

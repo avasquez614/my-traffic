@@ -2,7 +2,7 @@ package org.mytraffic.priv.services.impl;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mytraffic.priv.Location;
+import org.mytraffic.Location;
 
 import static org.junit.Assert.assertTrue;
 

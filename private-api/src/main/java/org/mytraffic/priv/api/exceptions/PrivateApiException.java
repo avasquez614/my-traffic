@@ -1,6 +1,6 @@
 package org.mytraffic.priv.api.exceptions;
 
-import org.mytraffic.priv.exception.MyTrafficException;
+import org.mytraffic.exception.MyTrafficException;
 
 /**
  * Root exception for all My Traffic private API.
@@ -10,7 +10,7 @@ import org.mytraffic.priv.exception.MyTrafficException;
  */
 public class PrivateApiException extends MyTrafficException {
 
-    private PrivateApiErrorCode errorCode;
+    protected PrivateApiErrorCode errorCode;
 
     public PrivateApiException(PrivateApiErrorCode errorCode) {
         this.errorCode = errorCode;

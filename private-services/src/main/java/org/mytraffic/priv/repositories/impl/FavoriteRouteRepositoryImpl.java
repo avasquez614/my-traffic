@@ -2,7 +2,7 @@ package org.mytraffic.priv.repositories.impl;
 
 import org.craftercms.commons.mongo.AbstractJongoRepository;
 import org.craftercms.commons.mongo.MongoDataException;
-import org.mytraffic.priv.FavoriteRoute;
+import org.mytraffic.FavoriteRoute;
 import org.mytraffic.priv.repositories.FavoriteRouteRepository;
 
 import java.time.LocalTime;

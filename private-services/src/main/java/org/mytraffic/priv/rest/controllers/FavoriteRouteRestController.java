@@ -1,6 +1,6 @@
 package org.mytraffic.priv.rest.controllers;
 
-import org.mytraffic.priv.FavoriteRoute;
+import org.mytraffic.FavoriteRoute;
 import org.mytraffic.priv.api.exceptions.PrivateApiException;
 import org.mytraffic.priv.api.services.FavoriteRouteService;
 import org.springframework.beans.factory.annotation.Autowired;

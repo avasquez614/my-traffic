@@ -1,6 +1,6 @@
 package org.mytraffic.priv.utils.maps;
 
-import org.mytraffic.priv.Location;
+import org.mytraffic.Location;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class PolyUtils {
     }
 
     /**
-     * Same as {@link #isLocationOnPath(org.mytraffic.priv.Location, List, boolean, double)}
+     * Same as {@link #isLocationOnPath(org.mytraffic.Location, List, boolean, double)}
      * with a default tolerance of 0.1 meters.
      */
     public static boolean isLocationOnPath(Location point, List<Location> polyline, boolean geodesic) {

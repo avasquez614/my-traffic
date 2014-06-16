@@ -1,6 +1,6 @@
 package org.mytraffic.priv.services.impl;
 
-import org.mytraffic.priv.Location;
+import org.mytraffic.Location;
 import org.mytraffic.priv.api.exceptions.PrivateApiException;
 import org.mytraffic.priv.api.services.LocationService;
 import org.mytraffic.priv.utils.maps.PolyUtils;
