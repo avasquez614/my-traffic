@@ -46,21 +46,21 @@ public class TrafficIncidentRestClient extends AbstractPrivateServicesRestClient
 
     @Override
     public TrafficIncident addIncident(TrafficIncident incident) throws PrivateApiException {
-        String url = getAbsoluteUrl(URL_FAVORITE_ROUTES_ADD);
+        String url = getAbsoluteUrl(URL_TRAFFIC_INCIDENTS_ADD);
 
         return doPostForObject(url, incident, TrafficIncident.class);
     }
 
     @Override
     public TrafficIncident updateIncident(TrafficIncident incident) throws PrivateApiException {
-        String url = getAbsoluteUrl(URL_FAVORITE_ROUTES_UPDATE);
+        String url = getAbsoluteUrl(URL_TRAFFIC_INCIDENTS_UPDATE);
 
         return doPostForObject(url, incident, TrafficIncident.class);
     }
 
     @Override
     public void removeIncident(String id) throws PrivateApiException {
-        String url = getAbsoluteUrl(URL_FAVORITE_ROUTES_REMOVE);
+        String url = getAbsoluteUrl(URL_TRAFFIC_INCIDENTS_REMOVE);
 
         doDelete(url, id);
     }

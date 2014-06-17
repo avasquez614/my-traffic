@@ -45,7 +45,8 @@ public abstract class AbstractPrivateServicesRestClientBase extends AbstractRest
         return null;
     }
 
-    protected <T> T doGetForObject(String url, Class<T> responseType, Object... uriVariables) throws PrivateApiException {
+    protected <T> T doGetForObject(String url, Class<T> responseType, Object... uriVariables)
+            throws PrivateApiException {
         try {
             return restTemplate.getForObject(url, responseType, uriVariables);
         } catch (RestServiceException e) {
