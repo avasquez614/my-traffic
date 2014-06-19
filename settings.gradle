@@ -1,4 +1,4 @@
 rootProject.name = 'my-traffic'
 
-include 'commons', 'private-api', 'private-services', 'private-services-client'
+include 'commons', 'private-api', 'private-services', 'private-services-client', 'notification-engine'
 

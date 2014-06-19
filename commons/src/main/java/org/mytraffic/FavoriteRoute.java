@@ -68,4 +68,27 @@ public class FavoriteRoute {
         this.minIncidentSeverity = minIncidentSeverity;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        FavoriteRoute route = (FavoriteRoute) o;
+
+        if (!_id.equals(route._id)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return _id.hashCode();
+    }
+
 }

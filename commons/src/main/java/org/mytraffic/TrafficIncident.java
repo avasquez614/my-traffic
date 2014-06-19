@@ -76,4 +76,27 @@ public class TrafficIncident {
         this.lastModified = lastModified;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        TrafficIncident incident = (TrafficIncident) o;
+
+        if (!_id.equals(incident._id)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return _id.hashCode();
+    }
+
 }

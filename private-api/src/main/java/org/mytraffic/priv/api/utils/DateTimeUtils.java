@@ -18,11 +18,19 @@ public class DateTimeUtils {
     }
 
     public static final String formatDateTime(ZonedDateTime dateTime) {
-        return dateTime.format(DateTimeFormatter.ofPattern(PrivateApiConstants.DATE_TIME_FORMAT));
+        if (dateTime != null) {
+            return dateTime.format(DateTimeFormatter.ofPattern(PrivateApiConstants.DATE_TIME_FORMAT));
+        } else {
+            return null;
+        }
     }
 
     public static final String formatTime(LocalTime time) {
-        return time.format(DateTimeFormatter.ofPattern(PrivateApiConstants.TIME_FORMAT));
+        if (time != null) {
+            return time.format(DateTimeFormatter.ofPattern(PrivateApiConstants.TIME_FORMAT));
+        } else {
+            return null;
+        }
     }
 
 }
