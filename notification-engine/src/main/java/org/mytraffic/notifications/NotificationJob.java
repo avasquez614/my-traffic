@@ -1,21 +1,31 @@
 package org.mytraffic.notifications;
 
+import org.craftercms.commons.mail.Email;
+import org.craftercms.commons.mail.EmailException;
 import org.craftercms.commons.mail.EmailFactory;
+import org.craftercms.profile.api.Profile;
+import org.craftercms.profile.api.exceptions.ProfileException;
+import org.craftercms.profile.api.services.ProfileService;
 import org.mytraffic.FavoriteRoute;
 import org.mytraffic.TrafficIncident;
 import org.mytraffic.priv.api.exceptions.PrivateApiException;
 import org.mytraffic.priv.api.services.FavoriteRouteService;
 import org.mytraffic.priv.api.services.LocationService;
 import org.mytraffic.priv.api.services.TrafficIncidentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +39,10 @@ import java.util.Map;
 @Component
 public class NotificationJob {
 
+    private static final Logger logger = LoggerFactory.getLogger(NotificationJob.class);
+
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
     private int delay;
     private int timeSinceIncidents;
     private String from;
@@ -38,6 +52,7 @@ public class NotificationJob {
     private FavoriteRouteService favoriteRouteService;
     private TrafficIncidentService trafficIncidentService;
     private LocationService locationService;
+    private ProfileService profileService;
 
     @Value("${notification.job.delay}")
     public void setDelay(int delay) {
@@ -84,17 +99,46 @@ public class NotificationJob {
         this.locationService = locationService;
     }
 
+    @Autowired
+    public void setProfileService(ProfileService profileService) {
+        this.profileService = profileService;
+    }
+
     @Scheduled(cron = "${notification.job.cron}")
-    public void sendNotifications() throws PrivateApiException {
+    public void sendNotifications()  {
         ZonedDateTime startTime = ZonedDateTime.now();
 
-        List<FavoriteRoute> routes = getRoutesToNotify(startTime);
-        List<TrafficIncident> incidents = getTrafficIncidentsToNotify(startTime);
-        Map<String, List<TrafficIncident>> routesWithIncidents = getRoutesWithIncidents(routes, incidents);
+        logger.info("Notification job started");
 
-        if (!routesWithIncidents.isEmpty()) {
+        try {
+            List<FavoriteRoute> routes = getRoutesToNotify(startTime);
+            List<TrafficIncident> incidents = getTrafficIncidentsToNotify(startTime);
+            MultiValueMap<String, RouteWithIncidents> routesWithIncidents = getRoutesWithIncidents(routes, incidents);
 
+            if (!routesWithIncidents.isEmpty()) {
+                for (Map.Entry<String, List<RouteWithIncidents>> entry : routesWithIncidents.entrySet()) {
+                   Profile profile = null;
+                    try {
+                        profile = profileService.getProfile(entry.getKey());
+                        Map<String, Object> templateModel = new HashMap<>();
+
+                        templateModel.put("profile", profile);
+                        templateModel.put("routesWithIncidents", entry.getValue());
+                        templateModel.put("formatter", FORMATTER);
+
+                        sendEmail(profile.getEmail(), templateModel);
+                    } catch (ProfileException e) {
+                        logger.error("Unable to retrieve profile for user ID '" + entry.getKey() + "'", e);
+                    } catch (EmailException e) {
+                        logger.error("Unable to send email to " + profile.getEmail(), e);
+                    }
+                }
+            }
+        } catch (PrivateApiException e) {
+            logger.error("Error while trying to resolve routes with incidents", e);
         }
+
+        logger.info("Notification job ended");
     }
 
     private List<FavoriteRoute> getRoutesToNotify(ZonedDateTime jobStartTime) throws PrivateApiException {
@@ -112,10 +156,10 @@ public class NotificationJob {
         return trafficIncidentService.findIncidentsByDateRange(startOfIncidents, null);
     }
 
-    private Map<String, List<TrafficIncident>> getRoutesWithIncidents(List<FavoriteRoute> routes,
-                                                                      List<TrafficIncident> incidents)
+    private MultiValueMap<String, RouteWithIncidents> getRoutesWithIncidents(List<FavoriteRoute> routes,
+                                                                             List<TrafficIncident> incidents)
             throws PrivateApiException {
-        Map<String, List<TrafficIncident>> routesWithIncidents = new LinkedHashMap<>();
+        MultiValueMap<String, RouteWithIncidents> routesWithIncidents = new LinkedMultiValueMap<>();
 
         if (routes != null) {
             for (FavoriteRoute route : routes) {
@@ -132,12 +176,39 @@ public class NotificationJob {
                 }
 
                 if (!incidentsInRoute.isEmpty()) {
-                    routesWithIncidents.put(route.getDescription(), incidentsInRoute);
+                    routesWithIncidents.add(route.getUserId(), new RouteWithIncidents(route, incidents));
                 }
             }
         }
 
         return routesWithIncidents;
+    }
+
+    private static class RouteWithIncidents {
+
+        private FavoriteRoute route;
+        private List<TrafficIncident> incidents;
+
+        private RouteWithIncidents(FavoriteRoute route, List<TrafficIncident> incidents) {
+            this.route = route;
+            this.incidents = incidents;
+        }
+
+        public FavoriteRoute getRoute() {
+            return route;
+        }
+
+        public List<TrafficIncident> getIncidents() {
+            return incidents;
+        }
+
+    }
+
+    private void sendEmail(String to, Object templateModel) throws EmailException {
+        String[] toArray = new String[] { to };
+        Email email = emailFactory.getEmail(from, toArray, null, null, subject, templateName, templateModel, true);
+
+        email.send();
     }
 
 }
