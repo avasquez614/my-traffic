@@ -3,7 +3,7 @@
 <properties>
 
     <entry key="trafficIncidents.findByDateRange">
-        {lastModified: {$lte: #, $gte: #}}
+        {lastModified: {$gte: #, $lte: #}}
     </entry>
 
     <entry key="favoriteRoute.findByUserId">
@@ -11,7 +11,7 @@
     </entry>
 
     <entry key="favoriteRoute.findByNotificationTimeRange">
-        {notificationTimes: {$lte: #, $gte: #}}
+        {notificationTimes: {$gte: #, $lte: #}}
     </entry>
 
 </properties>

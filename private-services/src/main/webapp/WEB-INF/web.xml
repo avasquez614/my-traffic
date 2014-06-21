@@ -42,6 +42,7 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>org.mytraffic.priv.config.WebConfig</param-value>
         </init-param>
+        <load-on-startup>1</load-on-startup>
     </servlet>
 
     <!-- map all requests for /app/* to the dispatcher servlet -->

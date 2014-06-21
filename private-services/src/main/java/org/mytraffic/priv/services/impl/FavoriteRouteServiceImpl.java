@@ -6,8 +6,8 @@ import org.mytraffic.FavoriteRoute;
 import org.mytraffic.priv.api.exceptions.PrivateApiErrorCode;
 import org.mytraffic.priv.api.exceptions.PrivateApiException;
 import org.mytraffic.priv.api.services.FavoriteRouteService;
-import org.mytraffic.priv.api.utils.DateTimeUtils;
 import org.mytraffic.priv.repositories.FavoriteRouteRepository;
+import org.mytraffic.utils.datetime.DateTimeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

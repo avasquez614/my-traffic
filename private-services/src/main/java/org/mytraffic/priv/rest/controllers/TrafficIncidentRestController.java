@@ -13,6 +13,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 import static org.mytraffic.priv.api.PrivateApiConstants.*;
+import static org.mytraffic.utils.datetime.DateTimeUtils.DATE_TIME_FORMAT;
 
 /**
  * REST controller for the {@link org.mytraffic.priv.api.services.TrafficIncidentService}.

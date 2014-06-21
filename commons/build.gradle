@@ -1,9 +1,0 @@
-dependencies {
-    compile 'org.mongodb:bson:2.11.3'
-    compile 'org.craftercms:crafter-commons-utilities:2.5.0-SNAPSHOT'
-    compile 'org.springframework:spring-context:4.0.5.RELEASE'
-    compile 'org.springframework:spring-webmvc:4.0.5.RELEASE'
-    compile 'com.fasterxml.jackson.core:jackson-core:2.4.0'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.0'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.4.0'
-}

@@ -1,6 +1,0 @@
-dependencies {
-    compile project(':private-services-client')
-    compile 'org.craftercms:crafter-profile-client:2.5.0-SNAPSHOT'
-    compile 'javax.mail:mail:1.4.7'
-    compile 'org.freemarker:freemarker:2.3.20'
-}

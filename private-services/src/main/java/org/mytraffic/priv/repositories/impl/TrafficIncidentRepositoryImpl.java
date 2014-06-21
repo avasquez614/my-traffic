@@ -20,7 +20,7 @@ public class TrafficIncidentRepositoryImpl extends AbstractJongoRepository<Traff
 
     @Override
     public Iterable<TrafficIncident> findByDateRange(ZonedDateTime from, ZonedDateTime to) throws MongoDataException {
-        return find(getQueryFor(KEY_FIND_BY_DATE_RANGE), from, to);
+        return find(getQueryFor(KEY_FIND_BY_DATE_RANGE), from.toInstant().toEpochMilli(), to.toInstant().toEpochMilli());
     }
 
 }

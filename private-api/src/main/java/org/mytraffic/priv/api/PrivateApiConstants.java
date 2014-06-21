@@ -11,14 +11,14 @@ public class PrivateApiConstants {
     private PrivateApiConstants() {
     }
 
-    public static final String BASE_URL_REST_API = "/api/1/private";
+    public static final String BASE_URL_REST_API = "/api/1";
     public static final String BASE_URL_TRAFFIC_INCIDENTS = BASE_URL_REST_API + "/traffic_incidents";
     public static final String BASE_URL_FAVORITE_ROUTES = BASE_URL_REST_API + "/favorite_routes";
     public static final String BASE_URL_LOCATION = BASE_URL_REST_API + "/location";
 
     public static final String PATH_VAR_ID = "id";
 
-    public static final String URL_TRAFFIC_INCIDENTS_FIND_BY_ID = "/find/{" + PATH_VAR_ID + "}";
+    public static final String URL_TRAFFIC_INCIDENTS_FIND_BY_ID = "/{" + PATH_VAR_ID + "}/find";
     public static final String URL_TRAFFIC_INCIDENTS_FIND_BY_DATE_RANGE = "/find/by_date_range";
     public static final String URL_TRAFFIC_INCIDENTS_ADD = "/add";
     public static final String URL_TRAFFIC_INCIDENTS_UPDATE = "/update";
@@ -38,8 +38,5 @@ public class PrivateApiConstants {
     public static final String PARAM_LATITUDE = "lat";
     public static final String PARAM_LONGITUDE = "lng";
     public static final String PARAM_POLYLINE = "poly";
-
-    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
-    public static final String TIME_FORMAT = "HH:mm:ss";
 
 }

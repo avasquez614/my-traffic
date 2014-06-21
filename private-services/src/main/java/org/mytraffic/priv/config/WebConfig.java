@@ -1,7 +1,14 @@
 package org.mytraffic.priv.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.bson.types.ObjectId;
+import org.craftercms.commons.jackson.ObjectIdDeserializer;
+import org.craftercms.commons.jackson.ObjectIdSerializer;
+import org.mytraffic.utils.jackson.LocalTimeDeserializer;
+import org.mytraffic.utils.jackson.LocalTimeSerializer;
+import org.mytraffic.utils.jackson.ZonedDateTimeDeserializer;
+import org.mytraffic.utils.jackson.ZonedDateTimeSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +17,8 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -25,8 +34,16 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public ObjectMapper objectMapper() {
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(new ObjectIdSerializer());
+        module.addSerializer(new LocalTimeSerializer());
+        module.addSerializer(new ZonedDateTimeSerializer());
+        module.addDeserializer(ObjectId.class, new ObjectIdDeserializer());
+        module.addDeserializer(LocalTime.class, new LocalTimeDeserializer());
+        module.addDeserializer(ZonedDateTime.class, new ZonedDateTimeDeserializer());
+
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JSR310Module());
+        objectMapper.registerModule(module);
 
         return objectMapper;
     }

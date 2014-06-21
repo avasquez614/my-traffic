@@ -4,7 +4,7 @@ import org.craftercms.commons.rest.RestClientUtils;
 import org.mytraffic.TrafficIncident;
 import org.mytraffic.priv.api.exceptions.PrivateApiException;
 import org.mytraffic.priv.api.services.TrafficIncidentService;
-import org.mytraffic.priv.api.utils.DateTimeUtils;
+import org.mytraffic.utils.datetime.DateTimeUtils;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -20,7 +20,7 @@ import static org.mytraffic.priv.api.PrivateApiConstants.*;
  * @author avasquez
  * @author mariobarque
  */
-public class TrafficIncidentRestClient extends AbstractPrivateServicesRestClientBase implements TrafficIncidentService {
+public class TrafficIncidentServiceRestClient extends AbstractPrivateServicesRestClientBase implements TrafficIncidentService {
 
     public static final ParameterizedTypeReference<List<TrafficIncident>> trafficIncidentListTypeRef =
             new ParameterizedTypeReference<List<TrafficIncident>>() {};

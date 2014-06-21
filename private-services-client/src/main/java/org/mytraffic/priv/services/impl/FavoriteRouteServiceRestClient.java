@@ -4,7 +4,7 @@ import org.craftercms.commons.rest.RestClientUtils;
 import org.mytraffic.FavoriteRoute;
 import org.mytraffic.priv.api.exceptions.PrivateApiException;
 import org.mytraffic.priv.api.services.FavoriteRouteService;
-import org.mytraffic.priv.api.utils.DateTimeUtils;
+import org.mytraffic.utils.datetime.DateTimeUtils;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -20,7 +20,7 @@ import static org.mytraffic.priv.api.PrivateApiConstants.*;
  * @author avasquez
  * @author mariobarque
  */
-public class FavoriteRouteRestClient extends AbstractPrivateServicesRestClientBase implements FavoriteRouteService {
+public class FavoriteRouteServiceRestClient extends AbstractPrivateServicesRestClientBase implements FavoriteRouteService {
 
     public static final ParameterizedTypeReference<List<FavoriteRoute>> favoriteRouteListTypeRef =
             new ParameterizedTypeReference<List<FavoriteRoute>>() {};

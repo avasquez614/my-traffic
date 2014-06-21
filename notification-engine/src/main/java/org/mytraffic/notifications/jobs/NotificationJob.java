@@ -1,4 +1,4 @@
-package org.mytraffic.notifications;
+package org.mytraffic.notifications.jobs;
 
 import org.craftercms.commons.mail.Email;
 import org.craftercms.commons.mail.EmailException;

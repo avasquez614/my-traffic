@@ -1,17 +1,28 @@
 package org.mytraffic.priv.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.bson.types.ObjectId;
+import org.craftercms.commons.jackson.ObjectIdDeserializer;
+import org.craftercms.commons.jackson.ObjectIdSerializer;
 import org.craftercms.commons.rest.RestTemplate;
 import org.mytraffic.priv.api.exceptions.PrivateApiErrorDetails;
-import org.mytraffic.priv.services.impl.FavoriteRouteRestClient;
-import org.mytraffic.priv.services.impl.TrafficIncidentRestClient;
+import org.mytraffic.priv.services.impl.FavoriteRouteServiceRestClient;
+import org.mytraffic.priv.services.impl.LocationServiceRestClient;
+import org.mytraffic.priv.services.impl.TrafficIncidentServiceRestClient;
+import org.mytraffic.utils.jackson.LocalTimeDeserializer;
+import org.mytraffic.utils.jackson.LocalTimeSerializer;
+import org.mytraffic.utils.jackson.ZonedDateTimeDeserializer;
+import org.mytraffic.utils.jackson.ZonedDateTimeSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
 
 /**
  * Spring client configuration.
@@ -21,7 +32,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
  */
 @Configuration
 @PropertySource("classpath:config.properties")
-@ComponentScan("org.mytraffic.priv.services")
 public class ClientConfig {
 
     @Value("${url.extension}")
@@ -30,9 +40,22 @@ public class ClientConfig {
     private String urlBase;
 
     @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+
+    @Bean
     public ObjectMapper objectMapper() {
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(new ObjectIdSerializer());
+        module.addSerializer(new LocalTimeSerializer());
+        module.addSerializer(new ZonedDateTimeSerializer());
+        module.addDeserializer(ObjectId.class, new ObjectIdDeserializer());
+        module.addDeserializer(LocalTime.class, new LocalTimeDeserializer());
+        module.addDeserializer(ZonedDateTime.class, new ZonedDateTimeDeserializer());
+
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JSR310Module());
+        objectMapper.registerModule(module);
 
         return objectMapper;
     }
@@ -55,8 +78,8 @@ public class ClientConfig {
     }
 
     @Bean
-    public TrafficIncidentRestClient trafficIncidentRestClient() {
-        TrafficIncidentRestClient client = new TrafficIncidentRestClient();
+    public TrafficIncidentServiceRestClient trafficIncidentServiceRestClient() {
+        TrafficIncidentServiceRestClient client = new TrafficIncidentServiceRestClient();
         client.setBaseUrl(urlBase);
         client.setExtension(urlExtension);
         client.setRestTemplate(restTemplate());
@@ -65,8 +88,18 @@ public class ClientConfig {
     }
 
     @Bean
-    public FavoriteRouteRestClient favoriteRouteRestClient() {
-        FavoriteRouteRestClient client = new FavoriteRouteRestClient();
+    public FavoriteRouteServiceRestClient favoriteRouteServiceRestClient() {
+        FavoriteRouteServiceRestClient client = new FavoriteRouteServiceRestClient();
+        client.setBaseUrl(urlBase);
+        client.setExtension(urlExtension);
+        client.setRestTemplate(restTemplate());
+
+        return client;
+    }
+
+    @Bean
+    public LocationServiceRestClient locationServiceRestClient() {
+        LocationServiceRestClient client = new LocationServiceRestClient();
         client.setBaseUrl(urlBase);
         client.setExtension(urlExtension);
         client.setRestTemplate(restTemplate());

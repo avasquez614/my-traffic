@@ -1,5 +1,7 @@
 package org.mytraffic.priv.config;
 
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
 import com.mongodb.MongoClient;
 import org.craftercms.commons.mongo.JongoFactoryBean;
 import org.craftercms.commons.mongo.JongoQueries;
@@ -10,6 +12,8 @@ import org.mytraffic.priv.repositories.impl.FavoriteRouteRepositoryImpl;
 import org.mytraffic.priv.repositories.impl.TrafficIncidentRepositoryImpl;
 import org.mytraffic.utils.jackson.JongoLocalTimeDeserializer;
 import org.mytraffic.utils.jackson.JongoLocalTimeSerializer;
+import org.mytraffic.utils.jackson.JongoZonedDateTimeDeserializer;
+import org.mytraffic.utils.jackson.JongoZonedDateTimeSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -21,8 +25,8 @@ import org.springframework.core.io.ResourceLoader;
 
 import java.net.UnknownHostException;
 import java.time.LocalTime;
-import java.util.Arrays;
-import java.util.Collections;
+import java.time.ZonedDateTime;
+import java.util.*;
 
 /**
  * Spring application configuration.
@@ -50,7 +54,7 @@ public class AppConfig {
     private String mongoPassword;
 
     @Bean
-    public PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
     }
 
@@ -61,27 +65,35 @@ public class AppConfig {
 
     @Bean
     public Jongo jongo() throws Exception {
+        List<JsonSerializer<?>> serializers = new ArrayList<>(2);
+        serializers.add(new JongoZonedDateTimeSerializer());
+        serializers.add(new JongoLocalTimeSerializer());
+
+        Map<Class<?>, JsonDeserializer<?>> deserializers = new HashMap<>(2);
+        deserializers.put(ZonedDateTime.class, new JongoZonedDateTimeDeserializer());
+        deserializers.put(LocalTime.class, new JongoLocalTimeDeserializer());
+
         JongoFactoryBean factoryBean = new JongoFactoryBean();
         factoryBean.setMongo(mongoClient());
         factoryBean.setDbName(mongoDbName);
         factoryBean.setUsername(mongoUsername);
         factoryBean.setUsername(mongoPassword);
-        factoryBean.setSerializers(Arrays.asList(new JongoLocalTimeSerializer()));
-        factoryBean.setDeserializers(Collections.singletonMap(LocalTime.class, new JongoLocalTimeDeserializer()));
+        factoryBean.setSerializers(serializers);
+        factoryBean.setDeserializers(deserializers);
         factoryBean.afterPropertiesSet();
 
         return factoryBean.getObject();
     }
 
-    @Bean
+    @Bean(initMethod = "init")
     public JongoQueries jongoQueries() {
         JongoQueries queries = new JongoQueries();
-        queries.setResources(Arrays.asList(resourceLoader.getResource("classpath:config.properties")));
+        queries.setResources(Arrays.asList(resourceLoader.getResource("classpath:queries.xml")));
 
         return queries;
     }
 
-    @Bean
+    @Bean(initMethod = "init")
     public TrafficIncidentRepository trafficIncidentRepository() throws Exception {
         TrafficIncidentRepositoryImpl repository = new TrafficIncidentRepositoryImpl();
         repository.setJongo(jongo());
@@ -90,7 +102,7 @@ public class AppConfig {
         return repository;
     }
 
-    @Bean
+    @Bean(initMethod = "init")
     public FavoriteRouteRepository favoriteRouteRepository() throws Exception {
         FavoriteRouteRepositoryImpl repository = new FavoriteRouteRepositoryImpl();
         repository.setJongo(jongo());

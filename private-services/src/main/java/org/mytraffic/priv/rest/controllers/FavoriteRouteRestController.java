@@ -13,6 +13,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 import static org.mytraffic.priv.api.PrivateApiConstants.*;
+import static org.mytraffic.utils.datetime.DateTimeUtils.TIME_FORMAT;
 
 /**
  * REST controller for the {@link org.mytraffic.priv.api.services.FavoriteRouteService}.
