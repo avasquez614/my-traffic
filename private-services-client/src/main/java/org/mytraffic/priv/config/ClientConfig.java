@@ -31,7 +31,7 @@ import java.time.ZonedDateTime;
  * @author mariobarque
  */
 @Configuration
-@PropertySource("classpath:config.properties")
+@PropertySource("classpath:client.properties")
 public class ClientConfig {
 
     @Value("${url.extension}")

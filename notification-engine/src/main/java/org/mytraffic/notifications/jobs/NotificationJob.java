@@ -22,6 +22,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -41,7 +42,8 @@ public class NotificationJob {
 
     private static final Logger logger = LoggerFactory.getLogger(NotificationJob.class);
 
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy h:mm a").withZone(
+            ZoneId.systemDefault());
 
     private int delay;
     private int timeSinceIncidents;
@@ -108,7 +110,7 @@ public class NotificationJob {
     public void sendNotifications()  {
         ZonedDateTime startTime = ZonedDateTime.now();
 
-        logger.info("Notification job started");
+        logger.debug("Notification job started");
 
         try {
             List<FavoriteRoute> routes = getRoutesToNotify(startTime);
@@ -127,6 +129,8 @@ public class NotificationJob {
                         templateModel.put("formatter", FORMATTER);
 
                         sendEmail(profile.getEmail(), templateModel);
+
+                        logger.debug("Notification email sent to {}", profile.getEmail());
                     } catch (ProfileException e) {
                         logger.error("Unable to retrieve profile for user ID '" + entry.getKey() + "'", e);
                     } catch (EmailException e) {
@@ -138,7 +142,7 @@ public class NotificationJob {
             logger.error("Error while trying to resolve routes with incidents", e);
         }
 
-        logger.info("Notification job ended");
+        logger.debug("Notification job ended");
     }
 
     private List<FavoriteRoute> getRoutesToNotify(ZonedDateTime jobStartTime) throws PrivateApiException {
@@ -184,7 +188,7 @@ public class NotificationJob {
         return routesWithIncidents;
     }
 
-    private static class RouteWithIncidents {
+    public static class RouteWithIncidents {
 
         private FavoriteRoute route;
         private List<TrafficIncident> incidents;

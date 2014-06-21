@@ -23,9 +23,10 @@ import java.util.Properties;
  */
 @Configuration
 @EnableScheduling
-@PropertySource("classpath:config.properties")
+@PropertySource("classpath:notifications.properties")
 @ComponentScan("org.mytraffic.notifications.jobs")
 @Import(ClientConfig.class)
+@ImportResource("classpath:crafter/profile/client-context.xml")
 public class AppConfig {
 
     @Value("${mail.host}")

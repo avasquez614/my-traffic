@@ -27,7 +27,7 @@ public class TrafficIncidentServiceRestClient extends AbstractPrivateServicesRes
 
     @Override
     public TrafficIncident findIncidentById(String id) throws PrivateApiException {
-        String url = getAbsoluteUrl(URL_TRAFFIC_INCIDENTS_FIND_BY_ID);
+        String url = getAbsoluteUrl(BASE_URL_TRAFFIC_INCIDENTS + URL_TRAFFIC_INCIDENTS_FIND_BY_ID);
 
         return doGetForObject(url, TrafficIncident.class, id);
     }
@@ -38,7 +38,7 @@ public class TrafficIncidentServiceRestClient extends AbstractPrivateServicesRes
         RestClientUtils.addValue(PARAM_FROM, DateTimeUtils.formatDateTime(from), params);
         RestClientUtils.addValue(PARAM_TO, DateTimeUtils.formatDateTime(to), params);
 
-        String url = getAbsoluteUrl(URL_TRAFFIC_INCIDENTS_FIND_BY_DATE_RANGE);
+        String url = getAbsoluteUrl(BASE_URL_TRAFFIC_INCIDENTS + URL_TRAFFIC_INCIDENTS_FIND_BY_DATE_RANGE);
         url = RestClientUtils.addQueryParams(url, params, false);
 
         return doGetForObject(url, trafficIncidentListTypeRef);
@@ -46,21 +46,21 @@ public class TrafficIncidentServiceRestClient extends AbstractPrivateServicesRes
 
     @Override
     public TrafficIncident addIncident(TrafficIncident incident) throws PrivateApiException {
-        String url = getAbsoluteUrl(URL_TRAFFIC_INCIDENTS_ADD);
+        String url = getAbsoluteUrl(BASE_URL_TRAFFIC_INCIDENTS + URL_TRAFFIC_INCIDENTS_ADD);
 
         return doPostForObject(url, incident, TrafficIncident.class);
     }
 
     @Override
     public TrafficIncident updateIncident(TrafficIncident incident) throws PrivateApiException {
-        String url = getAbsoluteUrl(URL_TRAFFIC_INCIDENTS_UPDATE);
+        String url = getAbsoluteUrl(BASE_URL_TRAFFIC_INCIDENTS + URL_TRAFFIC_INCIDENTS_UPDATE);
 
         return doPostForObject(url, incident, TrafficIncident.class);
     }
 
     @Override
     public void removeIncident(String id) throws PrivateApiException {
-        String url = getAbsoluteUrl(URL_TRAFFIC_INCIDENTS_REMOVE);
+        String url = getAbsoluteUrl(BASE_URL_TRAFFIC_INCIDENTS + URL_TRAFFIC_INCIDENTS_REMOVE);
 
         doDelete(url, id);
     }

@@ -35,7 +35,7 @@ import java.util.*;
  * @author mariobarque
  */
 @Configuration
-@PropertySource("classpath:config.properties")
+@PropertySource("classpath:server.properties")
 @ComponentScan("org.mytraffic.priv.services")
 public class AppConfig {
 

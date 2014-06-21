@@ -6,12 +6,28 @@
         {lastModified: {$gte: #, $lte: #}}
     </entry>
 
+    <entry key="trafficIncidents.findFromDate">
+        {lastModified: {$gte: #}}
+    </entry>
+
+    <entry key="trafficIncidents.findToDate">
+        {lastModified: {$lte: #}}
+    </entry>
+
     <entry key="favoriteRoute.findByUserId">
         {userId: #}
     </entry>
 
     <entry key="favoriteRoute.findByNotificationTimeRange">
         {notificationTimes: {$gte: #, $lte: #}}
+    </entry>
+
+    <entry key="favoriteRoute.findFromNotificationTime">
+        {notificationTimes: {$gte: #}}
+    </entry>
+
+    <entry key="favoriteRoute.findToNotificationTime">
+        {notificationTimes: {$lte: #}}
     </entry>
 
 </properties>

@@ -41,10 +41,10 @@ public class FavoriteRouteRestController {
 
     @RequestMapping(value = URL_FAVORITE_ROUTES_FIND_BY_NOTIFICATION_TIME_RANGE, method = RequestMethod.GET)
     @ResponseBody
-    List<FavoriteRoute> findFavoriteRoutesByNotificationTimeRange(@RequestParam(PARAM_FROM)
+    List<FavoriteRoute> findFavoriteRoutesByNotificationTimeRange(@RequestParam(value = PARAM_FROM, required = false)
                                                                   @DateTimeFormat(pattern = TIME_FORMAT)
                                                                   LocalTime from,
-                                                                  @RequestParam(PARAM_TO)
+                                                                  @RequestParam(value = PARAM_TO, required = false)
                                                                   @DateTimeFormat(pattern = TIME_FORMAT)
                                                                   LocalTime to) throws PrivateApiException {
         return service.findFavoriteRoutesByNotificationTimeRange(from, to);

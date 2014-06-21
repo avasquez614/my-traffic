@@ -7,6 +7,9 @@ import org.mytraffic.priv.api.services.LocationService;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import static org.mytraffic.priv.api.PrivateApiConstants.*;
 
 /**
@@ -24,10 +27,14 @@ public class LocationServiceRestClient extends AbstractPrivateServicesRestClient
         RestClientUtils.addValue(PARAM_LONGITUDE, location.getLongitude(), params);
         RestClientUtils.addValue(PARAM_POLYLINE, polyline, params);
 
-        String url = getAbsoluteUrl(URL_LOCATION_LOCATION_ON_ROUTE);
-        url = RestClientUtils.addQueryParams(url, params, false);
+        String url = getAbsoluteUrl(BASE_URL_LOCATION + URL_LOCATION_LOCATION_ON_ROUTE);
+        url = RestClientUtils.addQueryParams(url, params, true);
 
-        return doGetForObject(url, Boolean.class);
+        try {
+            return doGetForObject(new URI(url), Boolean.class);
+        } catch (URISyntaxException e) {
+            throw new IllegalStateException("Invalid URI: " + url);
+        }
     }
 
 }

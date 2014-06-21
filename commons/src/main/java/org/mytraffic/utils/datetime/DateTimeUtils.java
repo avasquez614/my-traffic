@@ -3,6 +3,7 @@ package org.mytraffic.utils.datetime;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -21,7 +22,7 @@ public class DateTimeUtils {
     }
 
     public static DateTimeFormatter getDateTimeFormatter() {
-        return DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
+        return DateTimeFormatter.ofPattern(DATE_TIME_FORMAT).withZone(ZoneId.systemDefault());
     }
 
     public static DateTimeFormatter getTimeFormatter() {

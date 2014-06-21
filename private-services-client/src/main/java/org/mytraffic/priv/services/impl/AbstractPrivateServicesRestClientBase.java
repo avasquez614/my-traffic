@@ -71,6 +71,18 @@ public abstract class AbstractPrivateServicesRestClientBase extends AbstractRest
         return null;
     }
 
+    protected <T> T doGetForObject(URI url, Class<T> responseType) throws PrivateApiException {
+        try {
+            return restTemplate.getForObject(url, responseType);
+        } catch (RestServiceException e) {
+            handleRestServiceException(e);
+        } catch (Exception e) {
+            handleException(e);
+        }
+
+        return null;
+    }
+
     protected void doDelete(String url, Object... uriVariables) throws PrivateApiException {
         try {
             restTemplate.delete(url, uriVariables);

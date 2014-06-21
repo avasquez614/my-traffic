@@ -14,6 +14,10 @@
     <name>My Traffic Private Services</name>
     <packaging>war</packaging>
 
+    <build>
+        <finalName>private-services</finalName>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>org.mytraffic</groupId>
