@@ -2,6 +2,28 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+    <filter>
+        <filter-name>crafter.requestContextBindingFilter</filter-name>
+        <filter-class>org.craftercms.commons.http.RequestContextBindingFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>crafter.securityFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>crafter.requestContextBindingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>crafter.securityFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <context-param>
         <param-name>contextClass</param-name>
         <param-value>
@@ -11,13 +33,14 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>org.mytraffic.priv.config.AppConfig</param-value>
+        <param-value>org.mytraffic.pub.config.AppConfig</param-value>
     </context-param>
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+    <!-- Declare a Spring MVC DispatcherServlet as usual -->
     <servlet>
         <servlet-name>dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -29,7 +52,7 @@
         </init-param>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>org.mytraffic.priv.config.WebConfig</param-value>
+            <param-value>org.mytraffic.pub.config.WebConfig</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>

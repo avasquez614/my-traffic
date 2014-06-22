@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="classpath:crafter/security/rest-security-context.xml"/>
+
+    <bean name="crafter.securityProperties"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="order" value="100"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:crafter/security/security.properties</value>
+                <value>classpath:security.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="crafter.loginProcessor" class="org.craftercms.security.processors.impl.LoginProcessor">
+        <property name="loginUrl" value="${crafter.security.login.url}"/>
+        <property name="authenticationManager" ref="crafter.authenticationManager"/>
+        <property name="loginSuccessHandler" ref="crafter.loginSuccessHandler"/>
+        <property name="loginFailureHandler" ref="crafter.loginFailureHandler"/>
+    </bean>
+
+    <bean id="crafter.logoutProcessor" class="org.craftercms.security.processors.impl.LogoutProcessor">
+        <property name="logoutUrl" value="${crafter.security.logout.url}"/>
+        <property name="authenticationManager" ref="crafter.authenticationManager"/>
+        <property name="logoutSuccessHandler" ref="crafter.logoutSuccessHandler"/>
+    </bean>
+
+</beans>
