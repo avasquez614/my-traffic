@@ -21,6 +21,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.Ordered;
 import org.springframework.core.io.ResourceLoader;
 
 import java.net.UnknownHostException;
@@ -55,7 +56,11 @@ public class AppConfig {
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
+        PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
+        configurer.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        configurer.setIgnoreUnresolvablePlaceholders(true);
+
+        return configurer;
     }
 
     @Bean

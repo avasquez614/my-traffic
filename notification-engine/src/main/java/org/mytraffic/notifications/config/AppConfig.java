@@ -7,6 +7,7 @@ import org.mytraffic.priv.config.ClientConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.Ordered;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -50,7 +51,11 @@ public class AppConfig {
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
+        PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
+        configurer.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        configurer.setIgnoreUnresolvablePlaceholders(true);
+
+        return configurer;
     }
 
     @Bean

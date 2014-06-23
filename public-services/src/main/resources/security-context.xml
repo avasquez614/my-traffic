@@ -5,18 +5,6 @@
 
     <import resource="classpath:crafter/security/rest-security-context.xml"/>
 
-    <bean name="crafter.securityProperties"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="order" value="100"/>
-        <property name="ignoreUnresolvablePlaceholders" value="true"/>
-        <property name="locations">
-            <list>
-                <value>classpath:crafter/security/security.properties</value>
-                <value>classpath:security.properties</value>
-            </list>
-        </property>
-    </bean>
-
     <bean id="crafter.loginProcessor" class="org.craftercms.security.processors.impl.LoginProcessor">
         <property name="loginUrl" value="${crafter.security.login.url}"/>
         <property name="authenticationManager" ref="crafter.authenticationManager"/>
