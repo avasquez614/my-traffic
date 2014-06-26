@@ -1,8 +1,28 @@
 package org.mytraffic.pub.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.bson.types.ObjectId;
+import org.craftercms.commons.jackson.ObjectIdDeserializer;
+import org.craftercms.commons.jackson.ObjectIdSerializer;
+import org.mytraffic.utils.jackson.LocalTimeDeserializer;
+import org.mytraffic.utils.jackson.LocalTimeSerializer;
+import org.mytraffic.utils.jackson.ZonedDateTimeDeserializer;
+import org.mytraffic.utils.jackson.ZonedDateTimeSerializer;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.Ordered;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
+import java.util.List;
 
 /**
  * Spring web application configuration.
@@ -12,6 +32,46 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan("org.mytraffic.pub.rest.controllers.")
-public class WebConfig {
+@PropertySource("classpath:server.properties")
+@ComponentScan("org.mytraffic.pub.rest.controllers")
+public class WebConfig extends WebMvcConfigurerAdapter {
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
+        configurer.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        configurer.setIgnoreUnresolvablePlaceholders(true);
+
+        return configurer;
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(new ObjectIdSerializer());
+        module.addSerializer(new LocalTimeSerializer());
+        module.addSerializer(new ZonedDateTimeSerializer());
+        module.addDeserializer(ObjectId.class, new ObjectIdDeserializer());
+        module.addDeserializer(LocalTime.class, new LocalTimeDeserializer());
+        module.addDeserializer(ZonedDateTime.class, new ZonedDateTimeDeserializer());
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(module);
+
+        return objectMapper;
+    }
+
+    @Bean
+    public MappingJackson2HttpMessageConverter jacksonMessageConverter() {
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        converter.setObjectMapper(objectMapper());
+
+        return converter;
+    }
+
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(jacksonMessageConverter());
+    }
+
 }

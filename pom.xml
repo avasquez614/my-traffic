@@ -16,7 +16,6 @@
         <module>private-services</module>
         <module>private-services-client</module>
         <module>notification-engine</module>
-        <module>public-api</module>
         <module>public-services</module>
     </modules>
 

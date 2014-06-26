@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -22,13 +23,14 @@ import java.util.List;
  * @author mariobarque
  */
 @Controller
-@RequestMapping("/api/1/route")
+@RequestMapping("/api/1/routes")
 public class RouteRestController {
 
     @Autowired
     private FavoriteRouteService favoriteRouteService;
 
     @RequestMapping(value = "/favorite/register", method = RequestMethod.POST)
+    @ResponseBody
     public FavoriteRoute registerFavoriteRoute(@RequestParam("userId") String userId,
                                                @RequestParam("polyline") String polyline,
                                                @RequestParam("description") String description,

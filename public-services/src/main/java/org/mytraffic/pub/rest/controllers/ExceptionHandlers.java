@@ -1,7 +1,7 @@
-package org.mytraffic.priv.rest.controllers;
+package org.mytraffic.pub.rest.controllers;
 
-import org.mytraffic.priv.api.exceptions.PrivateApiErrorCode;
-import org.mytraffic.priv.api.exceptions.PrivateApiErrorDetails;
+import org.craftercms.profile.api.exceptions.ProfileException;
+import org.craftercms.profile.exceptions.ProfileRestServiceException;
 import org.mytraffic.priv.api.exceptions.PrivateApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.util.Collections;
 
 /**
  * Advice for the REST controllers that includes response handling for all major exceptions.
@@ -26,28 +28,41 @@ public class ExceptionHandlers extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(PrivateApiException.class)
     public ResponseEntity<Object> handlePrivateApiException(PrivateApiException e, WebRequest request) {
-        return handleExceptionInternal(e, e.getErrorCode().getDefaultHttpStatus(), e.getErrorCode(), request);
+        return handleExceptionInternal(e, e.getErrorCode().getDefaultHttpStatus(), request);
+    }
+
+    @ExceptionHandler(ProfileRestServiceException.class)
+    public ResponseEntity<Object> handleProfileRestServiceException(ProfileRestServiceException e, WebRequest request) {
+        return handleExceptionInternal(e, e.getStatus(), request);
+    }
+
+    @ExceptionHandler(ProfileException.class)
+    public ResponseEntity<Object> handleProfileException(ProfileException e, WebRequest request) {
+        return handleExceptionInternal(e, HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers,
                                                              HttpStatus status, WebRequest request) {
-        return handleExceptionInternal(ex, headers, status, PrivateApiErrorCode.OTHER, request);
+        return handleExceptionInternal(ex, headers, status, request);
     }
 
-    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, HttpStatus status,
-                                                             PrivateApiErrorCode errorCode, WebRequest request) {
-        return handleExceptionInternal(ex, new HttpHeaders(), status, errorCode, request);
+    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, HttpStatus status, WebRequest request) {
+        return handleExceptionInternal(ex, new HttpHeaders(), status, request);
     }
 
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, HttpHeaders headers, HttpStatus status,
-                                                             PrivateApiErrorCode errorCode, WebRequest request) {
+                                                             WebRequest request) {
         logger.error("Request for " + ((ServletWebRequest) request).getRequest().getRequestURI() + " failed " +
                 "with HTTP status " + status, ex);
 
-        PrivateApiErrorDetails errorDetails = new PrivateApiErrorDetails(errorCode, ex.getLocalizedMessage());
+        String message = ex.getMessage();
 
-        return new ResponseEntity<>(errorDetails, headers, status);
+        if (ex instanceof ProfileRestServiceException) {
+            message = ((ProfileRestServiceException) ex).getDetailMessage();
+        }
+
+        return new ResponseEntity<>(Collections.singletonMap("message", message), headers, status);
     }
 
 }

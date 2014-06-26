@@ -48,7 +48,7 @@ public class FavoriteRouteServiceRestClient extends AbstractPrivateServicesRestC
 
     @Override
     public FavoriteRoute addFavoriteRoute(FavoriteRoute route) throws PrivateApiException {
-        String url = getAbsoluteUrl(BASE_URL_FAVORITE_ROUTES + URL_FAVORITE_ROUTES_REMOVE);
+        String url = getAbsoluteUrl(BASE_URL_FAVORITE_ROUTES + URL_FAVORITE_ROUTES_ADD);
 
         return doPostForObject(url, route, FavoriteRoute.class);
     }
