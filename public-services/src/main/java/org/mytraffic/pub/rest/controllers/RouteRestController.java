@@ -1,5 +1,6 @@
 package org.mytraffic.pub.rest.controllers;
 
+import org.craftercms.security.utils.SecurityUtils;
 import org.mytraffic.FavoriteRoute;
 import org.mytraffic.IncidentSeverity;
 import org.mytraffic.priv.api.exceptions.PrivateApiException;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -31,13 +33,15 @@ public class RouteRestController {
 
     @RequestMapping(value = "/favorite/register", method = RequestMethod.POST)
     @ResponseBody
-    public FavoriteRoute registerFavoriteRoute(@RequestParam("userId") String userId,
-                                               @RequestParam("polyline") String polyline,
+    public FavoriteRoute registerFavoriteRoute(@RequestParam("polyline") String polyline,
                                                @RequestParam("description") String description,
                                                @DateTimeFormat(pattern = DateTimeUtils.TIME_FORMAT)
                                                @RequestParam("notificationTime") List<LocalTime> notificationTimes,
-                                               @RequestParam("minIncidentSeverity")IncidentSeverity miIncidentSeverity)
+                                               @RequestParam("minIncidentSeverity")IncidentSeverity miIncidentSeverity,
+                                               HttpServletRequest request)
             throws PrivateApiException{
+        String userId = SecurityUtils.getAuthentication(request).getProfile().getId().toString();
+
         FavoriteRoute route = new FavoriteRoute();
         route.setUserId(userId);
         route.setPolyline(polyline);
